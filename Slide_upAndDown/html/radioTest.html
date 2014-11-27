@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>图片上下播放_练习</title>
+<link rel="stylesheet" href="../css/global.css">
+<script src="../js/jquery-1.9.0.min.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+
+/*chrome*/
+@-webkit-keyframes aniSec1a{
+	0%	{ opacity: 0; -webkit-transform: translateY(10%);}
+	100%{ opacity: 1; -webkit-transform: translateY(0%);}
+}
+@-webkit-keyframes aniSec1b{
+	0%	{ opacity: 1; -webkit-transform: translateY(0%);}
+	100%{ opacity: 0; -webkit-transform: translateY(-10%);}
+}
+/*ie*/
+@-ms-keyframes aniSec1a{
+	0%	{ opacity: 0; -ms-transform: translateY(10%);}
+	100%{ opacity: 1; -ms-transform: translateY(0%);}
+}
+@-ms-keyframes aniSec1b{
+	0%	{ opacity: 1; -ms-transform: translateY(0%);}
+	100%{ opacity: 0; -ms-transform: translateY(-10%);}
+}
+/*opera*/
+@-o-keyframes aniSec1a{
+	0%	{ opacity: 0; -o-transform: translateY(10%);}
+	100%{ opacity: 1; -o-transform: translateY(0%);}
+}
+@-o-keyframes aniSec1b{
+	0%	{ opacity: 1; -o-transform: translateY(0%);}
+	100%{ opacity: 0; -o-transform: translateY(-10%);}
+}
+/*moz*/
+@-moz-keyframes aniSec1a{
+	0%	{ opacity: 0; -o-transform: translateY(10%);}
+	100%{ opacity: 1; -o-transform: translateY(0%);}
+}
+@-moz-keyframes aniSec1b{
+	0%	{ opacity: 1; -o-transform: translateY(0%);}
+	100%{ opacity: 0; -o-transform: translateY(-10%);}
+}
+
+@keyframes aniSec1a{
+	0%	{ opacity: 0; transform: translateY(10%);}
+	100%{ opacity: 1; transform: translateY(0%);}
+}
+@keyframes aniSec1b{
+	0%	{ opacity: 1; transform: translateY(0%);}
+	100%{ opacity: 0; transform: translateY(-10%);}
+}
+body,ul,li{
+	padding: 0;margin: 0;
+}
+li{
+	list-style:none;
+}
+img{
+	vertical-align: top;
+}
+.wrap {
+	width: 970px;
+	margin: 0 auto;
+	*zoom: 1;
+	position: relative
+}
+.wrap:after,.wrap_white:after {
+	content: "";
+	display: table;
+	clear: both
+}
+	.s_wrap{
+		width: 796px;
+		margin: 0 auto;
+		*zoom: 1;
+		position: relative;
+	}
+	.s_wrap:after,.s_wrap:after {
+		content: "";
+		display: table;
+		clear: both
+	}
+	.slider_wrap{
+		box-shadow: 6px 6px 6px #969696;
+		background-color:#fff; padding:10px 0; 
+	}
+	.slider_container{
+		position: relative;
+		width: 772px;
+		height: 500px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	.slider_section{
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		display: none;
+	}
+	.slider_pagenav{
+		margin-left: 10px;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+	.pagenav:active{
+		box-shadow: 0px 0px 2px #f60;
+	}
+	.pagenav:active,.pagenav:hover{
+		box-shadow: 0px 0px 2px #dcdcdc;
+	}
+	.slider_pagenav li{
+		float: left;
+		margin-right: 4px;
+	}
+	.slider_nav{
+		position: absolute;
+		z-index: 9999;
+		display: none;
+	}
+	.slider_nav a{
+		color: #fff;
+	}
+	.slider_pagenav .active{
+		box-shadow: 0px 0px 2px #f30;
+	}
+	.slider_container .active {
+		-webkit-animation: aniSec1a 700ms ease 300ms both;
+		-moz-animation: aniSec1a 700ms ease 300ms both;
+		-ms-animation: aniSec1a 700ms ease 300ms both;
+		-o-animation: aniSec1a 700ms ease 300ms both;
+		animation: aniSec1a 700ms ease 300ms both;
+	}
+	.slider_container .disappear{
+		-webkit-animation: aniSec1b 1000ms ease 1ms both;
+		-moz-animation: aniSec1b 1000ms ease 1ms both;
+		-ms-animation: aniSec1b 1000ms ease 1ms both;
+		-o-animation: aniSec1b 1000ms ease 1ms both;
+		animation: aniSec1b 1000ms ease 1ms both;
+	}
+</style>
+</head>
+<body>
+<div class="wrap" style="background-color:#cfcfcf; padding:20px 0;">
+	<div class="s_wrap slider_wrap">
+		<div class="slider_container">
+			<div class="slider_section">
+				<img src="../images/b_img_01.png"/>
+			</div>
+			<div class="slider_section">
+				<img src="../images/b_img_02.png"/>
+			</div>
+			<div class="slider_section">
+				<img src="../images/b_img_03.png"/>
+			</div>
+			<div class="slider_section">
+				<img src="../images/b_img_04.png"/>
+			</div>
+			<div class="slider_nav">
+				<a href="#" class="slider_nav_last">上一页</a>
+				<a href="#" class="slider_nav_next">下一页</a>
+			</div>
+		</div>
+		<div class="slider_pagenav">
+			<ul>
+				<li class="pagenav" index="0"><img src="../images/s_img_01.png"/></li>
+				<li class="pagenav" index="1"><img src="../images/s_img_02.png"/></li>
+				<li class="pagenav" index="2"><img src="../images/s_img_03.png"/></li>
+				<li class="pagenav" index="3"><img src="../images/s_img_04.png"/></li>
+				<li class="pagenav" index="4"><img src="../images/s_img_05.png"/></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var curIndex = 0,
+		canRoll = false,	
+		slideSection = $(".slider_container .slider_section"),	
+		pageSection = $(".slider_pagenav .pagenav"),
+		maxLength = 0,
+		playSlide = setTimeout(function(){jumpPage(false)},2000);
+
+	$(slideSection[0]).show();
+	$(pageSection[0]).addClass("active");
+
+	// 获取最大长度	
+	if(slideSection && pageSection){
+		maxLength = slideSection.length < pageSection.length ?slideSection.length :pageSection.length;
+		if (maxLength>1) {
+			canRoll = true;
+		};
+	}
+
+	$(".slider_nav_last").bind("click",function(){
+		jumpPage(true);
+	});
+	$(".slider_nav_next").bind("click",function(){
+		jumpPage(false);
+	});
+	pageSection.bind("click",function(){
+		showPage(parseInt($(this).attr("index")));
+	});
+	// 向上、向下
+	function jumpPage(up){
+		var gotoIndex = curIndex + (up?-1:1);
+		if(gotoIndex>maxLength-1){
+			gotoIndex = 0;
+		}else if(gotoIndex<0){
+			gotoIndex = maxLength - 1;
+		}
+		showPage(gotoIndex);
+	}
+
+	function showPage(pageIndex){
+		if( curIndex === pageIndex || !canRoll || pageIndex > maxLength-1){
+			return;
+		}
+		canRoll = false;
+		clearTimeout(playSlide);
+
+		$(pageSection[curIndex]).removeClass("active");
+		$(pageSection[pageIndex]).addClass("active");
+
+		$(slideSection[curIndex]).removeClass("active").addClass("disappear");
+		$(slideSection[pageIndex]).css("display","block").removeClass("disappear").addClass("active");
+		
+		setTimeout((function(i){
+			return function(){
+				$(slideSection[i]).css("display","none");
+			};
+		})(curIndex),1000);
+
+		setTimeout(function(){
+			canRoll = true;
+			playSlide = setTimeout(function(){jumpPage(false)},2000);
+		},1000);
+		curIndex = pageIndex;
+	}
+});
+</script>
+</body>
+</html>
